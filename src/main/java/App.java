@@ -8,13 +8,19 @@ public class App {
   public static void main(String[] args) {
 
     staticFileLocation("/public");
-    
+
     get("/", (request, response) -> {
-      return new ModelAndView(new HashMap(), "templates/hello.vtl");
-    }, new VelocityTemplateEngine());
-    
+      return render(new HashMap(), "templates/hello.vm");
+    });
+
     get("/favorite_photos", (request, response) -> {
-      return new ModelAndView(new HashMap(), "templates/favorite_photos.vtl");
-    }, new VelocityTemplateEngine());
+      return render(new HashMap(), "templates/favorite_photos.vm");
+    });
+  }
+
+  public static String render(HashMap model, String templatePath) {
+    return new VelocityTemplateEngine().render(
+      new ModelAndView(model, templatePath)
+    );
   }
 }
