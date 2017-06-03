@@ -24,6 +24,25 @@ public class App {
       model.put("template", "templates/favorite_photos.vm");
       return render(model, layout);
     });
+    
+    get("/form", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/form.vm");
+      return render(model, layout);
+    });
+
+    get("/greeting_card", (request, response) -> {
+
+      Map<String, Object> model = new HashMap<String, Object>();
+      String recipient = request.queryParams("recipient");
+      String sender = request.queryParams("sender");
+
+      model.put("recipient", recipient);
+      model.put("sender", sender);
+      model.put("template", "templates/greeting_card.vm");
+
+      return render(model, layout);
+    });
   }
 
   public static String render(Map model, String templatePath) {
